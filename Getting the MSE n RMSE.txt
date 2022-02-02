@@ -1,0 +1,33 @@
+
+### 1. 선형회귀(Linear regression)
+## 1.2 평균제곱오차(MSE, Mean Squared Error) & 평균제곱근오차(RMSE, Root Mean Squared Error) 
+
+import numpy as np
+import matplotlib.pyplot as plt
+
+
+# Data
+data = [[2, 81], [4, 93], [6, 91], [8, 97]]
+x_data = [i[0] for i in data]
+y_data = [i[1] for i in data]
+
+
+# 데이터 변환하기(Converting data)
+x = np.array(x_data)
+y = np.array(y_data)
+plt.scatter(x, y)
+
+
+# 예측값의 임의 일차함수 만들기(Creating a linear function of any predicted value)
+py = 3 * x + 79
+plt.plot(x, py, 'g')
+
+
+# MSE, RMSE 구하기(Getting the MSE & RMSE)
+er = py - y
+MSE = (1 / len(x)) * sum((er)**2)
+RMSE = np.sqrt((1 / len(x)) * sum((er)**2))
+
+
+# 결과 보여주기(Showing the results)
+print('mse:', MSE, '   rmse:', RMSE)

@@ -1,0 +1,64 @@
+
+### 1. 선형회귀(Linear regression)
+## 1.4 다중선형회귀(Multi-linear regression) 
+
+import numpy as np
+import matplotlib.pyplot as plt
+
+
+# Data
+data = [[2, 0, 81], [4, 4, 93], [6, 2, 91], [8, 3, 97]]
+x1_data = [i[0] for i in data]
+x2_data = [i[1] for i in data]
+y_data = [i[2] for i in data]
+
+
+# 데이터 변환하기(Converting data)
+x1 = np.array(x1_data)
+x2 = np.array(x2_data)
+y = np.array(y_data)
+plt.plot(x, y, 'b.')
+
+
+# 초기화(Initialization)
+a1 = 0
+a2 = 0
+b = 0
+
+
+# 학습률(Learning rate)
+RL = 0.05
+
+
+# 반복 횟수(The number of repetitions)
+epochs = 2000
+
+
+# 경사하강법(Gradient decent)
+for i in range(epochs):
+    
+    # 예측값 함수 만들기(Creating a linear function of any predicted value)
+    py = a1 * x1 + a2 *x2 + b
+    
+    # 에러(Error)
+    er = py - y
+    
+    # 편미분(Partial differentiation)
+    a1mse = np.mean(er * x1)
+    a2mse = np.mean(er * x2)
+    bmse = np.mean(er)
+    
+    # a와 b값 구하기(Getting values for a and b)
+    a1 = a1 - RL * a1mse
+    a2 = a2 - RL * a2mse
+    b = b - RL * bmse
+    
+    # epoch가 100번 반복될 때마다 아래 내용 출력(Every time the epoch is repeated 100 times, the contents below are printed out)
+    if i % 200 == 0: 
+        print("epoch = %.f, 기울기a1 = %.04f, 기울기a2 = %.04f, 절편 = %.04f, 에러 = %.04f" % (i, a1, a2, b, er.mean()))
+
+        
+# 결과 보여주기(Showing the results)
+plt.plot([min(x), max(x)], [min(py), max(py)], 'r')
+plt.show
+
